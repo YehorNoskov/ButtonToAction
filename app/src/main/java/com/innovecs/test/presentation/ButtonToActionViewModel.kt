@@ -22,5 +22,4 @@ class ButtonToActionViewModel : ViewModel() {
             _buttonAction.postValue(interactor.execute())
         }
     }
-
 }

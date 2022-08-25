@@ -18,7 +18,7 @@ class ButtonToActionInteractor(private val repository: ButtonToActionRepository)
 
     private fun getCurrentAction(list: List<ButtonToAction>): ButtonToAction? {
         val enabledActions = list.filter { it.enabled }
-        val validActions = enabledActions.filter { isDayValid(it) && isActionInCoolPeriod(it) }
+        val validActions = enabledActions.filter { isDayValid(it) && isCoolPeriodPassed(it) }
         //todo If two actions have the same priority, choose one at random.
         return validActions.maxByOrNull { it.priority }
     }
@@ -29,7 +29,7 @@ class ButtonToActionInteractor(private val repository: ButtonToActionRepository)
         return action.validDays.contains(currentDay)
     }
 
-    private fun isActionInCoolPeriod(action: ButtonToAction): Boolean {
+    private fun isCoolPeriodPassed(action: ButtonToAction): Boolean {
         val timeAction = repository.getActionTime(buttonAction(action.type)) ?: return true
         val cooledDate = Calendar.getInstance().apply {
             timeInMillis = timeAction

@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         subscribeForUpdates()
         setNotificationChannel()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
         binding.performButton.setOnClickListener {
             if (checkConnectivity(this)) {
                 viewModel.performActionClick()
